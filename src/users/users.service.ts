@@ -19,7 +19,6 @@ export class UsersService {
 
   async findOneBy(id: number) {
     const user = await this.usersRepository.findOneBy({ id });
-
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -33,18 +32,12 @@ export class UsersService {
 
   async update(id: number, attrs: Partial<User>) {
     const user = await this.findOneBy(id);
-    if (!user) {
-      throw new Error('User not found');
-    }
     Object.assign(user, attrs);
     return this.usersRepository.save(user);
   }
 
   async remove(id: number) {
     const user = await this.findOneBy(id);
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
     return this.usersRepository.remove(user);
   }
 }
